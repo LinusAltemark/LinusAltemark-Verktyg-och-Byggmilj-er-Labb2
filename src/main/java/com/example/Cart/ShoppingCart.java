@@ -32,5 +32,18 @@ class ShoppingCart {
         }
         items.remove(item);
     }
+
+    //Nu finns updateQuantity
+    /*void updateQuantity(Item item, int quantity) {
+        items.put(item, quantity);
+    }*/
+
+    //Ser till att Quantity inte kan vara negativt
+    void updateQuantity(Item item, int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
+        items.put(item, quantity);
+    }
 }
 
