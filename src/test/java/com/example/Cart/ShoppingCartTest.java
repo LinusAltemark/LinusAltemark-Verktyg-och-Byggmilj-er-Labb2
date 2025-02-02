@@ -22,7 +22,7 @@ class ShoppingCartTest {
     @Test
     void shouldRemoveItemFromCart() {
         ShoppingCart cart = new ShoppingCart();
-        Item item = new Item("Apple", 10.0);
+        Item item = new Item("Pear", 10.0);
         cart.addItem(item, 2);
 
         cart.removeItem(item);
@@ -35,12 +35,24 @@ class ShoppingCartTest {
     @Test
     void shouldUpdateItemQuantity() {
         ShoppingCart cart = new ShoppingCart();
-        Item item = new Item("Apple", 10.0);
+        Item item = new Item("Grapes", 10.0);
         cart.addItem(item, 2);
 
         cart.updateQuantity(item, 5);
 
         assertThat(cart.getTotalPrice()).isEqualTo(50.0);
         //updateQuantity saknas
+    }
+
+    @Test
+    void shouldApplyDiscount() {
+        ShoppingCart cart = new ShoppingCart();
+        Item item = new Item("Laptop", 10000.0);
+        cart.addItem(item, 1);
+
+        cart.applyDiscount(20); // 20% rabatt
+
+        assertThat(cart.getTotalPrice()).isEqualTo(8000.0);
+        // applyDiscount existerar inte än, ska nu läggas till i shoppingCart klassen
     }
 }

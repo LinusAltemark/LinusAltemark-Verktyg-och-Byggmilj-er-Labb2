@@ -5,6 +5,7 @@ import java.util.Map;
 
 class ShoppingCart {
     private final Map<Item, Integer> items = new HashMap<>();
+    private double discount = 0.0; // Rabatt i procent
 
     void addItem(Item item, int quantity) {
         items.merge(item, quantity, Integer::sum);
@@ -15,9 +16,10 @@ class ShoppingCart {
     }
 
     double getTotalPrice() {
-        return items.entrySet().stream()
+        double total = items.entrySet().stream()
                 .mapToDouble(entry -> entry.getKey().getPrice() * entry.getValue())
                 .sum();
+        return total - (total * discount / 100); // Tar bort rabatt från totalpriset
     }
 
     //Fixade så att removeItem nu existerar
@@ -45,5 +47,14 @@ class ShoppingCart {
         }
         items.put(item, quantity);
     }
+
+    // Har nu lagt till applyDiscount metoden
+    void applyDiscount(double percentage) {
+        if (percentage < 0 || percentage > 100) {
+            throw new IllegalArgumentException("Discount must be between 0 and 100");
+        }
+        this.discount = percentage;
+    }
+
 }
 
